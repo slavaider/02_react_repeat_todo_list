@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {Component} from "react";
+import MenuContainer from "./components/MenuContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: []
+        }
+    }
+
+    addItem = (event) => {
+        event.preventDefault()
+        const items = this.state.items;
+        items.unshift({text: event.target.text.value, key: Date.now()})
+        this.setState({items})
+        event.target.text.value = ''
+    }
+
+    deleteItem(key) {
+        this.setState({items: this.state.items.filter(item => item.key !== key)})
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <MenuContainer/>
+                <div className="header">
+                    <form onSubmit={this.addItem}>
+                        <input name='text' placeholder='Введите задачу' type="text"/>
+                        <button type='submit'>Добавить</button>
+                    </form>
+                    <ul className='List'>
+                        {this.state.items.map((item) =>
+                            (
+                                <li
+                                    onClick={this.deleteItem.bind(this, item.key)}
+                                    key={item.key}>{item.text}
+                                </li>
+                            )
+                        )}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
