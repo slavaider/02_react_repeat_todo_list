@@ -1,5 +1,7 @@
 import React from 'react';
 import './Menu.css'
+import {NavLink} from "react-router-dom";
+
 const Menu = (props) => {
     const classes = ['Menu']
     if (props.menuVisibility) {
@@ -8,11 +10,10 @@ const Menu = (props) => {
         classes.push('hide')
     }
     return (
-        <div className={classes.join(' ')} onMouseDown={props.handleMouseDown}>
-            <h2><a href="#">Home</a></h2>
-            <h2><a href="#">About</a></h2>
-            <h2><a href="#">Contact</a></h2>
-            <h2><a href="#">Search</a></h2>
+        <div className={classes.join(' ')} onClick={props.handleMouseDown}>
+            <h2><NavLink exact to='/'>Home</NavLink></h2>
+            <h2><NavLink exact to='/one'>One</NavLink></h2>
+            <h2><NavLink exact to='/two'>Two</NavLink></h2>
         </div>
     );
 

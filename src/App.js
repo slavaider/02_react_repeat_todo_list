@@ -1,6 +1,9 @@
 import './App.css';
 import React, {Component} from "react";
 import MenuContainer from "./components/MenuContainer";
+import One from "./components/One";
+import Two from "./components/Two";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 
 class App extends Component {
@@ -42,6 +45,11 @@ class App extends Component {
                             )
                         )}
                     </ul>
+                    <Switch>
+                        <Route path='/one' component={One}/>
+                        <Route path='/two' component={Two}/>
+                        <Redirect to='/'/>
+                    </Switch>
                 </div>
             </div>
         );
